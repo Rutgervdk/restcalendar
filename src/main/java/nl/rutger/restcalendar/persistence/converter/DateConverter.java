@@ -9,7 +9,7 @@ public class DateConverter {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH");
 
-        return LocalDateTime.parse(dateToConvert,formatter);
+        return LocalDateTime.parse(dateToConvert, formatter);
 
     }
 }

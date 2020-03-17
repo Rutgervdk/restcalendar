@@ -40,7 +40,7 @@ public class MainController {
         }
 
         meetingRepository.save(newMeeting);
-        return new ResponseEntity<Meeting>(newMeeting,HttpStatus.CREATED);
+        return new ResponseEntity<Meeting>(newMeeting, HttpStatus.CREATED);
     }
 
     @GetMapping(path = "/freeslot", produces = MediaType.APPLICATION_JSON_VALUE)

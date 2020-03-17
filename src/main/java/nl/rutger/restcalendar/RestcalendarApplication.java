@@ -7,8 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class RestcalendarApplication {
 
 
-	public static void main(String[] args) {
-		SpringApplication.run(RestcalendarApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(RestcalendarApplication.class, args);
+    }
 
 }

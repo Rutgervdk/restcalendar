@@ -31,7 +31,7 @@ public class AvailabilityValidator {
 
     public LocalDateTime findFirstFreeSlot(Meeting dateTimeToSearchFrom) {
 
-        while(!validate(dateTimeToSearchFrom)){
+        while (!validate(dateTimeToSearchFrom)) {
 
             dateTimeToSearchFrom.setStartDateTime(dateTimeToSearchFrom.getStartDateTime().plusHours(SLOT_INCREMENT));
             dateTimeToSearchFrom.setEndDateTime(dateTimeToSearchFrom.getEndDateTime().plusHours(SLOT_INCREMENT));
