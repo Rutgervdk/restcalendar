@@ -6,6 +6,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 
+
+/**
+ * POJO representing a meeting in the calendar
+ */
 @Entity
 public class Meeting {
 

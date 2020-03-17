@@ -1,5 +1,9 @@
 package nl.rutger.restcalendar.persistence.dto;
 
+/**
+ * A class representing the requests made by the user
+ */
+
 public class MeetingDto {
 
     private String startDateTime;

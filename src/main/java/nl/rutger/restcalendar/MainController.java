@@ -5,7 +5,6 @@ import nl.rutger.restcalendar.persistence.converter.DtoToMeeting;
 import nl.rutger.restcalendar.persistence.dao.MeetingRepository;
 import nl.rutger.restcalendar.persistence.dto.MeetingDto;
 import nl.rutger.restcalendar.validator.AvailabilityValidator;
-import nl.rutger.restcalendar.validator.DateValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/calendar")
@@ -29,9 +29,9 @@ public class MainController {
 
 
     @PostMapping(path = "/add")
-    public ResponseEntity<?> addMeeting(@RequestBody MeetingDto dto) {
+    public ResponseEntity<?> addMeeting(@RequestBody MeetingDto meetingToAdd) {
 
-        Meeting newMeeting = dtoToMeeting.convertFromDto(dto);
+        Meeting newMeeting = dtoToMeeting.convertFromDto(meetingToAdd);
 
         if (newMeeting == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -42,6 +42,7 @@ public class MainController {
         meetingRepository.save(newMeeting);
         return new ResponseEntity<Meeting>(newMeeting, HttpStatus.CREATED);
     }
+
 
     @GetMapping(path = "/freeslot", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> firstFreeSlot(@RequestBody MeetingDto dto) {
@@ -56,6 +57,27 @@ public class MainController {
 
 
         return new ResponseEntity<>(firstAvailableSlot, HttpStatus.I_AM_A_TEAPOT);
+    }
+
+
+    @GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> seeAllMeetings() {
+
+        ArrayList<Meeting> allMeetings = (ArrayList<Meeting>) meetingRepository.findAll();
+
+        return new ResponseEntity<>(allMeetings, HttpStatus.OK);
+    }
+
+
+    @DeleteMapping(path = "/meeting/{id}")
+    public ResponseEntity<?> deleteMeeting(@PathVariable Integer id) {
+
+        if (meetingRepository.existsById(id)) {
+            meetingRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 

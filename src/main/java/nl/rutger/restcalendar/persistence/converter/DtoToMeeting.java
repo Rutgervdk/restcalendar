@@ -11,6 +11,11 @@ import java.time.format.DateTimeParseException;
 @Component
 public class DtoToMeeting {
 
+    /**
+     * @param dto the object to be converted into a Meeting object
+     * @return the Meeting object generated
+     */
+
     public Meeting convertFromDto(MeetingDto dto) {
 
         if (DateValidator.validate(dto.getStartDateTime())) {
@@ -21,8 +26,9 @@ public class DtoToMeeting {
 
             try {
 
-                LocalDateTime convertedStartDateTime = DateConverter.convert(dto.getStartDateTime());
+                LocalDateTime convertedStartDateTime = StringToDateConverter.convert(dto.getStartDateTime());
 
+                //calculate end date and time based on the amount of slots (hours) have been requested
                 LocalDateTime convertedEndDateTime = convertedStartDateTime.plusHours(dto.getNrOfHourSlots());
 
                 Meeting m = new Meeting();
